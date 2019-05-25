@@ -1,0 +1,136 @@
+<div class="my-form-container">
+  <ul class="nav nav-pills  nav-fill justify-content-center">
+    <li class="nav-item">
+      <a class="nav-link" [class.active]="viewPage=='logIn'" (click)="changePage('logIn')">Log In</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [class.active]="viewPage=='signUp'"  (click)="changePage('signUp')">Sign Up</a>
+    </li>
+  </ul>
+
+<div class="my-form"  *ngIf="viewPage=='signUp'">
+    <form [formGroup] = 'SignUpForm' (ngSubmit)="onSignUp()">
+        <div class="form-group">
+          <div class="row">
+            <div class="col">
+              <input formControlName="firstName"
+                    class="form-control col" 
+                    type="text" 
+                    placeholder="First Name">
+            </div>
+            <div class="col">
+                  <input formControlName="secondName"
+                        class="form-control col"
+                          type="text" 
+                          placeholder="Second Name">
+            </div>
+          </div>
+          <div *ngIf="firstName.touched && firstName.invalid" class="alert alert-danger">
+            <div *ngIf="firstName.errors.required">
+                First Name Is Required
+            </div>
+            <div *ngIf="firstName.errors.minlength">
+                Min Length of First Name is 3
+            </div>
+    
+          </div>
+          <div *ngIf="secondName.touched && secondName.invalid" class="alert alert-danger">
+  
+              <div *ngIf="secondName.errors.required">
+                  Second Name Is Required
+              </div>
+              <div *ngIf="secondName.errors.minlength">
+                  Min Length of Second Name is 3
+              </div>
+            </div>
+     
+        </div>
+ 
+        <div class="form-group">
+          <input formControlName="email"
+              type='email' 
+               class='form-control' 
+               placeholder='Email@example.com'>
+      </div>
+      <div *ngIf="email.touched && email.invalid" class="alert alert-danger">
+  
+          <div *ngIf="email.errors.required">
+              Email Is Required
+          </div>
+          <div *ngIf="email.errors.email">
+             Must Be  an Eamil like email@example.com
+          </div>
+      </div>
+        <div class="form-group">
+            <input formControlName="password"
+                   type='password' 
+                   class='form-control' 
+                   placeholder='Write password'>
+        </div>
+        <div *ngIf="password.touched && password.invalid" class="alert alert-danger">
+    
+            <div *ngIf="password.errors.required">
+                password Is Required
+            </div>
+            <div *ngIf="password.errors.minlength">
+               Must Be at least 8 charcter
+            </div>
+        </div>
+          <div class="form-group form-check">
+              <input type="checkbox" 
+                      class="form-check-input"
+                      formControlName="readPrivacy" 
+                      id="exampleCheck1">
+              <label class="form-check-label" 
+                     for="exampleCheck1">
+                     Yes I read privacy
+                  </label>
+            </div>
+         <button
+                 class="btn btn-success btn-block"
+                 [class.disabled]="SignUpForm.invalid"
+                 type="submit">
+                 Sign Up
+                </button>
+       </form>
+</div>
+<div class="my-form"  *ngIf="viewPage=='logIn'" >
+  <form [formGroup]='logInForm' (ngSubmit)="onLogIn()" >
+      <div class="form-group">
+          <input class='form-control'
+                type="text"
+                formControlName='logEmail'
+                placeholder="Write Email">
+        </div>
+        <div *ngIf="logEmail.touched && logEmail.invalid" class="alert alert-danger">
+  
+            <div *ngIf="logEmail.errors.required">
+                Email Is Required
+            </div>
+            <div *ngIf="logEmail.errors.email">
+               Must Be  an Eamil like email@example.com
+            </div>
+          </div>
+        <div class="form-group">
+           <input class='form-control'
+                  type="password"
+                  formControlName='logPassword'
+                  placeholder="Write Password">
+          </div>
+          <div *ngIf="logPassword.touched && logPassword.invalid" class="alert alert-danger">
+  
+              <div *ngIf="logPassword.errors.required">
+                 Password Is Required
+              </div>
+              <div *ngIf="logPassword.errors.minlength">
+                  Min Length of Password is 8
+              </div>
+            </div>
+          <button class="btn btn-success btn-block"
+                   [class.disabled]="logInForm.invalid"
+                   type="submit">
+            Log In
+          </button>
+  </form>
+ </div>
+</div>
